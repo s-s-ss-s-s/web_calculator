@@ -1,5 +1,6 @@
 // calculator.cpp
 #include "crow_all.h"
+#include <boost/asio.hpp>
 
 double calculate(double a, double b, const std::string& operation) {
     if (operation == "add") return a + b;
