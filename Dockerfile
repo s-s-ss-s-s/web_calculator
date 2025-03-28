@@ -1,15 +1,18 @@
-# Используем официальный образ для C++
+# Dockerfile
+
 FROM gcc:latest
 
-# Установка библиотек Boost
+# Установить Boost
 RUN apt-get update && \
-    apt-get install -y libboost-all-dev
+    apt-get install -y libboost-all-dev && \
+    apt-get clean
 
-# Копируем файлы проекта в контейнер
 WORKDIR /app
+
 COPY . .
 
-# Собираем проект
 RUN make
 
-# Открываем порт для доступа к сервер
+EXPOSE 8080
+
+CMD ["./calculator"]

@@ -1,16 +1,22 @@
+# Makefile
+
 CXX = g++
-CXXFLAGS = -std=c++17 -I/usr/local/include
-LDFLAGS = -L/usr/local/lib -lboost_system -lboost_filesystem -lpthread
+CXXFLAGS = -std=c++17 -I/path/to/boost/include
+LDFLAGS = -lpthread -lboost_system
 
 TARGET = calculator
+SRC = calculator.cpp
+OBJ = $(SRC:.cpp=.o)
 
 all: $(TARGET)
 
-$(TARGET): main.o
+$(TARGET): $(OBJ)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
-main.o: main.cpp
-	$(CXX) $(CXXFLAGS) -c main.cpp
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(OBJ) $(TARGET)
+
+.PHONY: all clean
