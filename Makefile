@@ -8,7 +8,15 @@ TARGET = calculator
 SRC = app.cpp
 OBJ = $(SRC:.cpp=.o)
 
-all: $(TARGET)
+TEST_SRC = /home/ruh/web_calculator/test.cpp
+TEST_EXEC = test
+
+all: test $(TARGET)
+
+test: $(TEST_SRC)
+	$(CXX) $(CXXFLAGS) $(BOOST_LIBS) -o $(TEST_EXEC) $^ $(LDFLAGS)
+	./$(TEST_EXEC)
+	@echo "no problemo"
 
 $(TARGET): $(OBJ)
 	$(CXX) -o $@ $^ $(LDFLAGS)
