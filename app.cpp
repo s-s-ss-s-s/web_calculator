@@ -1,8 +1,6 @@
 // app.cpp
 #include "crow_all.h"
 //#include <asio.hpp>
-#include "app_calc.h"
-
 double calculate(double a, double b, const std::string& operation) {
     if (operation == "add") return a + b;
     else if (operation == "subtract") return a - b;

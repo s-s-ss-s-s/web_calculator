@@ -1,30 +1,32 @@
-#Makefile
+CC = g++
+CFLAGS = -Wall -Iinclude
+TESTS = test.cpp app.cpp calc.cpp
+APP = app
+TEST_EXECUTABLE = test_runner
 
-CXX = g++
-CXXFLAGS = -std=c++17 -I/usr/include
-#LDFLAGS = -lpthread -lboost_system
+all: $(APP)
 
-TARGET = calculator
-SRC = app.cpp
-OBJ = $(SRC:.cpp=.o)
+$(APP): app.o calc.o
+	$(CC) -o $(APP) app.o calc.o
 
-TEST_SRC = /home/ruh/web_calculator/test.cpp
-TEST_EXEC = test
+test: $(TEST_EXECUTABLE)
 
-all: test $(TARGET)
+$(TEST_EXECUTABLE): $(TESTS)
+	$(CC) -o $(TEST_EXECUTABLE) $(TESTS)
 
-test: $(TEST_SRC)
-	$(CXX) $(CXXFLAGS) $(BOOST_LIBS) -o $(TEST_EXEC) $^ $(LDFLAGS)
-	./$(TEST_EXEC)
-	@echo "no problemo"
-
-$(TARGET): $(OBJ)
-	$(CXX) -o $@ $^ $(LDFLAGS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+run_tests: $(TEST_EXECUTABLE)
+	./$(TEST_EXECUTABLE)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(APP) $(TEST_EXECUTABLE) *.o
 
-.PHONY: all clean
+app.o: app.cpp
+	$(CC) $(CFLAGS) -c app.cpp
+
+calc.o: calc.cpp
+	$(CC) $(CFLAGS) -c calc.cpp
+
+test_runner: run_tests
+	@echo "Tests completed successfully."
+
+build: run_tests all

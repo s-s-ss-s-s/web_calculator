@@ -16,4 +16,4 @@ RUN make
 
 EXPOSE 8080
 
-CMD ["./calculator"]
+CMD ["./app"]
