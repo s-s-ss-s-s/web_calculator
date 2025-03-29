@@ -2,7 +2,7 @@
 
 FROM gcc:latest
 
-# Установить зависимости для Boost
+# зависимости для Boost
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         libboost-all-dev \
