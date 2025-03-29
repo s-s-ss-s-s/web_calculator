@@ -5,7 +5,7 @@
 
 BOOST_AUTO_TEST_CASE(AddTest)
 {
-    BOOST_TEST(calc(40.0, 2.0, "add") == 42.0);
+    BOOST_TEST(calc(40.0, 2.0, "add") == 0.0);
 }
 
 BOOST_AUTO_TEST_CASE(SubtractTest)
@@ -15,12 +15,12 @@ BOOST_AUTO_TEST_CASE(SubtractTest)
 
 BOOST_AUTO_TEST_CASE(MultiplyTest)
 {
-    BOOST_TEST(calc(8.0, 2.0, "multiply") == 16.0);
+    BOOST_TEST(calc(21.0, 2.0, "multiply") == 42.0);
 }
 
 BOOST_AUTO_TEST_CASE(DivideTest)
 {
-    BOOST_TEST(calc(6.0, 2.0, "divide") == 3.0);
+    BOOST_TEST(calc(84.0, 2.0, "divide") == 42.0);
 }
 
 BOOST_AUTO_TEST_CASE(DivideByZeroTest)

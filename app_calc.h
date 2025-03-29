@@ -4,6 +4,6 @@
 #include <stdexcept>
 #include <string>
 
-double calculate(double a, double b, const std::string& operation);
+double calc(double a, double b, const std::string& operation);
 
 #endif

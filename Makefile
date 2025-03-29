@@ -1,32 +1,28 @@
-CC = g++
-CFLAGS = -Wall -Iinclude
-TESTS = test.cpp app.cpp calc.cpp
-APP = app
-TEST_EXECUTABLE = test_runner
+CXX = g++
+CXXFLAGS = -std=c++17 -I./crow -I.
+LDFLAGS = -lpthread -lboost_system -lboost_unit_test_framework
 
-all: $(APP)
+TARGET = calculator
+SRC = app.cpp
+TEST_SRC = test.cpp calc.cpp
+OBJ = $(SRC:.cpp=.o)
+TEST_OBJ = $(TEST_SRC:.cpp=.o)
 
-$(APP): app.o calc.o
-	$(CC) -o $(APP) app.o calc.o
+all: test $(TARGET)
 
-test: $(TEST_EXECUTABLE)
+$(TARGET): $(OBJ)
+	@echo "Building main application..."
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
-$(TEST_EXECUTABLE): $(TESTS)
-	$(CC) -o $(TEST_EXECUTABLE) $(TESTS)
+test: $(TEST_OBJ)
+	@echo "Running tests..."
+	$(CXX) -o test_runner $^ $(LDFLAGS)
+	./test_runner
 
-run_tests: $(TEST_EXECUTABLE)
-	./$(TEST_EXECUTABLE)
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+.PHONY: all clean test
 
 clean:
-	rm -f $(APP) $(TEST_EXECUTABLE) *.o
-
-app.o: app.cpp
-	$(CC) $(CFLAGS) -c app.cpp
-
-calc.o: calc.cpp
-	$(CC) $(CFLAGS) -c calc.cpp
-
-test_runner: run_tests
-	@echo "Tests completed successfully."
-
-build: run_tests all
+	rm -f $(OBJ) $(TARGET) $(TEST_OBJ) test_runner
